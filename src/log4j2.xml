@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="warn">
+	<Properties>
+    	<Property name="logHeaderFormat">[%d{yyyy/MM/dd HH:mm:ss.SSS}] [%t] [%-5p] %c(%F:%L)&#x9;%m%n%ex</Property>
+    	<Property name="logFolderName">G:\FTP\Mail\Log\</Property>
+    	<Property name="LogFilePattern">_%d{yyyy-MM-dd}.log</Property>
+	</Properties>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout>
+	            <Pattern>${logHeaderFormat}</Pattern>
+            </PatternLayout>
+        </Console>
+		<!-- エラーレベルが「DEBUG」移行の全てのログが出力される。 -->
+        <RollingFile name="normalLogFile" fileName="${logFolderName}Normal" filePattern="${logFolderName}Normal${LogFilePattern}">
+            <PatternLayout>
+	            <Pattern>${logHeaderFormat}</Pattern>
+            </PatternLayout>
+			<Policies>
+	            <TimeBasedTriggeringPolicy />
+    	    </Policies>
+        </RollingFile>
+			<RollingFile name="errorLogFile" fileName="${logFolderName}Error" filePattern="${logFolderName}Errorl${LogFilePattern}">
+			<!-- エラーレベルが「ERROR」のみのログが出力される。 -->
+			<MarkerFilter marker="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+			<PatternLayout>
+	            <Pattern>${logHeaderFormat}</Pattern>
+            </PatternLayout>
+			<Policies>
+	            <TimeBasedTriggeringPolicy />
+    	    </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+	        <AppenderRef ref="console" />
+            <AppenderRef ref="normalLogFile" />
+            <AppenderRef ref="errorLogFile" />
+		</Root>
+    </Loggers>
+</configuration>
