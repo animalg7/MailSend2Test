@@ -42,6 +42,7 @@ public class MailSend2 {
 			new ResourceBundleManager();
 			// 「メール送信制御カード」ファイルを読込みます。
 			new MailSendControlFile( msgs[ 0 ] );
+			MailUtil2.setAplFolderName( MailSendControlFile.MIAL_SEND_CONTROL_CARD_FOLDER );
 
             // メール送信元は、「メール送信制御カード」の指定が無い場合は、プロパティーファイルから「Default」として設定される。
             String _fromAddress;
